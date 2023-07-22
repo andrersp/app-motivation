@@ -20,7 +20,12 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.buttonSave.setOnClickListener(this)
 
-        verifyUserName()
+//        verifyUserName()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
 
     override fun onClick(view: View) {
@@ -49,7 +54,7 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         if (name != "") {
 
             SecurityPreferences(this).storeString(MotivationConstants.KEY.USER_NAME, name)
-            startActivity(Intent(this, MainActivity::class.java))
+//            startActivity(Intent(this, MainActivity::class.java))
             finish()
         } else {
             Toast.makeText(
