@@ -1,6 +1,6 @@
 package com.example.motivation.infra
 
-class MotivationConstants private constructor(){
+class MotivationConstants private constructor() {
     object KEY {
         const val USER_NAME = "USER_NAME"
     }
@@ -9,6 +9,12 @@ class MotivationConstants private constructor(){
         const val ALL = 1
         const val HAPPY = 2
         const val SUNNY = 3
+    }
+
+    object LANGUAGE {
+        const val ENGLISH = "en"
+        const val PORTIGUESE = "pt"
+        const val FRENCH = "fr"
     }
 
 }

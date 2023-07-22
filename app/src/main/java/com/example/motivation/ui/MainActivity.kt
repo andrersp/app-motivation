@@ -11,9 +11,9 @@ import com.example.motivation.data.Mock
 import com.example.motivation.data.Phrase
 import com.example.motivation.infra.SecurityPreferences
 import com.example.motivation.databinding.ActivityMainBinding
+import java.util.Locale
 
-class MainActivity : AppCompatActivity(), View.OnClickListener
-{
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         super.onStart()
     }
 
-    override fun onResume(){
+    override fun onResume() {
         super.onResume()
         handleUserName()
     }
@@ -59,9 +59,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
 
         if (view.id == R.id.button_new_phrase) {
             setPhrase()
-            }
+        }
 
-        if (view.id in listOf(R.id.image_all, R.id.image_happy, R.id.image_sunny) ) {
+        if (view.id in listOf(R.id.image_all, R.id.image_happy, R.id.image_sunny)) {
             handlerFilter(view.id)
         }
 
@@ -73,28 +73,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
 
     }
 
-    private fun handleUserName(){
+    private fun handleUserName() {
         val name = SecurityPreferences(this).getString(MotivationConstants.KEY.USER_NAME)
-        binding.textWellcome.text = "Olá, $name"
+        val hello = getString(R.string.hello)
+        binding.textWellcome.text = "$hello, $name"
 
     }
 
-    private fun handlerFilter(id: Int){
+    private fun handlerFilter(id: Int) {
         binding.imageAll.setColorFilter(ContextCompat.getColor(this, R.color.dark_purple))
         binding.imageSunny.setColorFilter(ContextCompat.getColor(this, R.color.dark_purple))
         binding.imageHappy.setColorFilter(ContextCompat.getColor(this, R.color.dark_purple))
 
-        when(id) {
+        when (id) {
             R.id.image_all -> {
                 binding.imageAll.setColorFilter(ContextCompat.getColor(this, R.color.white))
                 categoryID = MotivationConstants.FILTER.ALL
 
             }
+
             R.id.image_happy -> {
                 binding.imageHappy.setColorFilter(ContextCompat.getColor(this, R.color.white))
                 categoryID = MotivationConstants.FILTER.HAPPY
 
             }
+
             R.id.image_sunny -> {
                 binding.imageSunny.setColorFilter(ContextCompat.getColor(this, R.color.white))
                 categoryID = MotivationConstants.FILTER.SUNNY
@@ -108,7 +111,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
     }
 
     private fun setPhrase() {
-        val phrase:Phrase = Mock().getPhrase(categoryID)
+        val lang: String = Locale.getDefault().language
+        val phrase: Phrase = Mock().getPhrase(categoryID, lang)
         binding.textPhrase.text = phrase.description
 
     }
